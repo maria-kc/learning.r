@@ -57,5 +57,31 @@ two_mixed +
   geom_jitter() #anbefales kun hvis man ikke har meget data
                 #ved jitter kan man se, at der er mere end en prik per udfald
 
+# 3 or more dimenstions (3 + variables) -----------------------------------
+
+ggplot(NHANES, aes(x = BMI, y = BPSysAve,
+                    colour = HomeOwn)) +
+    geom_point()
+
+ggplot(NHANES, aes(x = BMI, y = BPSysAve,
+                   colour = HomeOwn)) +
+    geom_smooth() +
+    facet_grid(cols = vars(Gender))
+
+ggplot(NHANES, aes(x = BMI, y = BPSysAve,
+                   colour = HomeOwn)) +
+  geom_smooth() +
+  facet_grid(rows = vars(Gender))
 
 
+colour_plot_nums <- NHANES %>%
+    ggplot(aes(x = BMI, y = BPSysAve,
+               colour = HomeOwn))
+colour_plot_nums +
+  geom_point()
+
+colour_plot_mixed <- NHANES %>%
+    ggplot(aes(x = Gender, y = BPSysAve,
+               colour = HomeOwn))
+colour_plot_mixed +
+  geom_boxplot()
