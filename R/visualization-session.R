@@ -85,3 +85,73 @@ colour_plot_mixed <- NHANES %>%
                colour = HomeOwn))
 colour_plot_mixed +
   geom_boxplot()
+
+
+colour_plot_nums +              #adding colour
+  geom_point(aes(alpha = Age))
+
+colour_plot_nums +              #adding size
+    geom_point(aes(size = Age))
+
+colour_plot_mixed +
+  geom_boxplot() +
+  facet_grid(cols = vars(SurveyYr),
+             rows = vars(PhysActive))
+
+#colour blind friendly colour palets
+base_boxplot <- NHANES %>%
+  ggplot(aes(x = HomeOwn, fill = Education)) +
+  geom_bar(position = position_dodge())
+
+base_boxplot +
+    scale_fill_viridis_d()
+
+base_boxplot +
+  scale_fill_viridis_d(option = "A")
+
+base_boxplot +
+  scale_fill_brewer(type = "qual")
+
+
+# Themes, titles, labels --------------------------------------------------
+
+basic_scatterplot <- NHANES %>%
+  ggplot(aes(x = Height, y = Weight,
+             colour = Age)) +
+  geom_point(alpha = 0.5) +
+  facet_grid(cols = vars(Gender)) +
+  scale_colour_viridis_c()
+
+basic_scatterplot +
+  theme_bw()
+
+basic_scatterplot +
+  theme_classic()
+
+basic_scatterplot +
+  theme_minimal()
+
+basic_scatterplot +
+  labs(title = "This is the plot",
+       y = "Weight (kg)",
+       x = "Height (cm)") +
+  theme ()
+
+basic_scatterplot +
+  labs(title = "This is the plot",
+       y = "Weight (kg)",
+       x = "Height (cm)") +
+  theme (panel.background = element_rect(fill = "pink"),
+         strip.background = element_rect(fill = "purple"))
+
+prettied_plot <- basic_scatterplot +
+  labs(title = "This is the plot",
+       y = "Weight (kg)",
+       x = "Height (cm)") +
+  theme (panel.background = element_rect(fill = "pink"),
+         strip.background = element_rect(fill = "purple"),
+         legend.text = element_text(size = 20,
+                                    color = "magenta"))
+
+ggsave(here::here("doc/prettied_plot.png"),
+       prettied_plot)
