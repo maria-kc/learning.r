@@ -12,7 +12,7 @@ names(NHANES)
 
 # 1 continuous
 ggplot(NHANES, aes(x = Weight)) +
-  geom_density()
+  geom_histogram()
 
 # 1 discrete
 ggplot(NHANES, aes(x = SmokeNow)) +
